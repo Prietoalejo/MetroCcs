@@ -24,5 +24,65 @@ public class Grafo {
         }
     }
     
+        public void insertGrafo(String name){
+        if(maxStation != cantidadStation){
+            for (int i = 0; i < maxStation; i++) {
+                if(this.vertice[i].getName().equals("")){
+                    this.vertice[i].setName(name);
+                    break;
+                }
+            }
+            this.cantidadStation ++;
+        }else{
+            Nodo[] aux = new Nodo[this.maxStation + 10];
+            
+            for (int i = 0; i < this.maxStation +10; i++) {
+                aux[i] = new Nodo("");
+            }
+            
+            
+            for (int i = 0; i < this.maxStation; i++) {
+                aux[i] = this.vertice[i];
+            }
+            
+            aux[maxStation].setName(name);
+            this.cantidadStation ++;
+            this.maxStation += 10;
+        }
+    }
+        
+            public void insertArista(String name1, String name2){
+        Nodo aux1 = null;
+        Nodo aux2 = null;
+        
+        for (int i = 0; i < this.maxStation; i++) {
+            if(this.vertice[i].getName().equals(name1)){
+                aux1 = this.vertice[i];
+            }else if(this.vertice[i].getName().equals(name2)){
+                aux2 = this.vertice[i];
+            }         
+        }
+        aux1.getAdyacente().insertBegin(name2);
+        aux2.getAdyacente().insertBegin(name1);
+    }
+    
+    public String mostrar(){
+        String grafo = "";
+        for (int i = 0; i < this.maxStation; i++) {
+            grafo += this.vertice[i].getName() + this.vertice[i].getAdyacente().print() + "\n";
+            
+        }
+        return grafo;
+    }
+    
+    public Nodo searchGraf(String name){
+        for (int i = 0; i < maxStation; i++) {
+            if(this.vertice[i].getName().equals(name))
+                return vertice[i];
+            
+        }return null;
+    
+    }
+    
     
 }
