@@ -6,7 +6,7 @@ package edd;
 
 /**
  *
- * @author guante
+ * @author Alejandro Prieto
  */
 public class Grafo {
     private Nodo[] vertice;
@@ -82,6 +82,19 @@ public class Grafo {
             
         }return null;
     
+    }
+    
+    public String[] arregloPosition(){
+        String [] temp = new String[this.maxStation];
+        for (int i = 0; i < this.maxStation; i++) {
+            temp[i] = this.vertice[i].getName();
+        }
+        return temp;
+        
+    }
+    
+    public boolean existeArista(int i, int j){
+        return this.vertice[i].getAdyacente().seacrh(this.vertice[j].getName()) != null;
     }
     
     
