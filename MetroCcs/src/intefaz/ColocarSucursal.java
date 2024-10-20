@@ -4,21 +4,20 @@
  */
 package intefaz;
 import edd.*;
+
 /**
  *
  * @author guante
  */
-public class Menu extends javax.swing.JFrame {
+public class ColocarSucursal extends javax.swing.JFrame {
     
     static Grafo test;
-
     /**
-     * Creates new form Menu
+     * Creates new form ColocarSucursal
      */
-    public Menu(Grafo g) {
-        
-        initComponents();
+    public ColocarSucursal(Grafo g) {
         this.test = g;
+        initComponents();
         this.setVisible(true);
     }
 
@@ -33,60 +32,50 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        addStation = new javax.swing.JButton();
-        AddArista = new javax.swing.JButton();
-        showGrafo = new javax.swing.JButton();
-        addSucursal = new javax.swing.JButton();
-        changeT = new javax.swing.JButton();
+        botonSucursales = new javax.swing.JButton();
+        selectorEstaciones = new javax.swing.JComboBox<>();
+        bacl = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel1.setText("MENU INICIAL");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 240, -1));
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jLabel1.setText("COLOCAR SUCURSAL");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, -1));
 
-        addStation.setText("AGREGAR ESTACION");
-        addStation.addActionListener(new java.awt.event.ActionListener() {
+        botonSucursales.setText("COLOCAR SUCURSAL SELECIONADA");
+        botonSucursales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addStationActionPerformed(evt);
+                botonSucursalesActionPerformed(evt);
             }
         });
-        jPanel1.add(addStation, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, -1, -1));
+        jPanel1.add(botonSucursales, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, 30));
 
-        AddArista.setText("AGREGAR ARISTA");
-        AddArista.addActionListener(new java.awt.event.ActionListener() {
+        selectorEstaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(selectorEstaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 170, -1));
+
+        bacl.setText("ATRAS");
+        bacl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddAristaActionPerformed(evt);
+                baclActionPerformed(evt);
             }
         });
-        jPanel1.add(AddArista, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
-
-        showGrafo.setText("MOSTRAR");
-        jPanel1.add(showGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
-
-        addSucursal.setText("COLOCAR SUCURSAL");
-        jPanel1.add(addSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, -1));
-
-        changeT.setText("CAMBIAR \"T\"");
-        jPanel1.add(changeT, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
+        jPanel1.add(bacl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStationActionPerformed
-        VentanaEstacion v = new VentanaEstacion(test);
-        this.dispose();
-    }//GEN-LAST:event_addStationActionPerformed
+    private void botonSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSucursalesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonSucursalesActionPerformed
 
-    private void AddAristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddAristaActionPerformed
-        VentanaArista v = new VentanaArista(test);
-        this.dispose();
-    }//GEN-LAST:event_AddAristaActionPerformed
+    private void baclActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baclActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_baclActionPerformed
 
     /**
      * @param args the command line arguments
@@ -105,31 +94,29 @@ public class Menu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ColocarSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ColocarSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ColocarSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ColocarSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu(test).setVisible(true);
+                new ColocarSucursal(test).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddArista;
-    private javax.swing.JButton addStation;
-    private javax.swing.JButton addSucursal;
-    private javax.swing.JButton changeT;
+    private javax.swing.JButton bacl;
+    private javax.swing.JButton botonSucursales;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton showGrafo;
+    private javax.swing.JComboBox<String> selectorEstaciones;
     // End of variables declaration//GEN-END:variables
 }

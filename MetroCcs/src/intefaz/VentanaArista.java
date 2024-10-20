@@ -36,7 +36,7 @@ public class VentanaArista extends javax.swing.JFrame {
         botonAddArista = new javax.swing.JButton();
         espacioUno = new javax.swing.JTextField();
         espacioDos = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -63,13 +63,13 @@ public class VentanaArista extends javax.swing.JFrame {
         jPanel1.add(espacioUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 190, -1));
         jPanel1.add(espacioDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 190, -1));
 
-        jButton2.setText("ATRAS");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        back.setText("ATRAS");
+        back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                backActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 480));
 
@@ -86,9 +86,10 @@ public class VentanaArista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_espacioUnoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        Menu v = new Menu(test);
+        this.dispose();
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,10 +127,10 @@ public class VentanaArista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
     private javax.swing.JButton botonAddArista;
     private javax.swing.JTextField espacioDos;
     private javax.swing.JTextField espacioUno;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
