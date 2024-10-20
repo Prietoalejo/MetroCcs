@@ -24,7 +24,7 @@ public class Grafo {
         }
     }
     
-        public void insertGrafo(String name){
+    public void insertGrafo(String name){
         if(maxStation != cantidadStation){
             for (int i = 0; i < maxStation; i++) {
                 if(this.vertice[i].getName().equals("")){
@@ -51,7 +51,7 @@ public class Grafo {
         }
     }
         
-            public void insertArista(String name1, String name2){
+    public void insertArista(String name1, String name2){
         Nodo aux1 = null;
         Nodo aux2 = null;
         

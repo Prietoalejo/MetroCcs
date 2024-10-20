@@ -38,69 +38,56 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Helvetica Neue" size="36" style="0"/>
+              <Font name="Helvetica Neue" size="24" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="MENU INICIAL"/>
+            <Property name="text" type="java.lang.String" value="VENTA DE ARISTAS"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="280" y="30" width="240" height="-1"/>
+              <AbsoluteConstraints x="280" y="30" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JButton" name="addStation">
+        <Component class="javax.swing.JButton" name="botonAddArista">
           <Properties>
-            <Property name="text" type="java.lang.String" value="AGREGAR ESTACION"/>
+            <Property name="text" type="java.lang.String" value="INSERTAR ARISTAS"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addStationActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonAddAristaActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="100" y="130" width="-1" height="-1"/>
+              <AbsoluteConstraints x="150" y="200" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JButton" name="AddArista">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="AGREGAR ARISTA"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="espacioUno">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AddAristaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="espacioUnoActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="100" y="180" width="-1" height="-1"/>
+              <AbsoluteConstraints x="310" y="170" width="190" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JButton" name="showGrafo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="MOSTRAR"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="espacioDos">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="100" y="230" width="-1" height="-1"/>
+              <AbsoluteConstraints x="310" y="230" width="190" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JButton" name="addSucursal">
+        <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="COLOCAR SUCURSAL"/>
+            <Property name="text" type="java.lang.String" value="ATRAS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="100" y="280" width="-1" height="-1"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JButton" name="changeT">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="CAMBIAR &quot;T&quot;"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="100" y="330" width="-1" height="-1"/>
+              <AbsoluteConstraints x="70" y="390" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>

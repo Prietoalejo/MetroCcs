@@ -57,6 +57,11 @@ public class Menu extends javax.swing.JFrame {
         jPanel1.add(addStation, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, -1, -1));
 
         AddArista.setText("AGREGAR ARISTA");
+        AddArista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddAristaActionPerformed(evt);
+            }
+        });
         jPanel1.add(AddArista, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
 
         showGrafo.setText("MOSTRAR");
@@ -77,6 +82,11 @@ public class Menu extends javax.swing.JFrame {
         ventanaEstacion v = new ventanaEstacion(test);
         this.dispose();
     }//GEN-LAST:event_addStationActionPerformed
+
+    private void AddAristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddAristaActionPerformed
+        VentanaArista v = new VentanaArista(test);
+        this.dispose();
+    }//GEN-LAST:event_AddAristaActionPerformed
 
     /**
      * @param args the command line arguments
