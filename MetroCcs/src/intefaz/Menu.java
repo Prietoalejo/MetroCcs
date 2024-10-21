@@ -65,12 +65,27 @@ public class Menu extends javax.swing.JFrame {
         jPanel1.add(AddArista, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
 
         showGrafo.setText("MOSTRAR");
+        showGrafo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showGrafoActionPerformed(evt);
+            }
+        });
         jPanel1.add(showGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
 
         addSucursal.setText("COLOCAR SUCURSAL");
+        addSucursal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addSucursalActionPerformed(evt);
+            }
+        });
         jPanel1.add(addSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, -1));
 
         changeT.setText("CAMBIAR \"T\"");
+        changeT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeTActionPerformed(evt);
+            }
+        });
         jPanel1.add(changeT, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 480));
@@ -87,6 +102,21 @@ public class Menu extends javax.swing.JFrame {
         VentanaArista v = new VentanaArista(test);
         this.dispose();
     }//GEN-LAST:event_AddAristaActionPerformed
+
+    private void showGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showGrafoActionPerformed
+        MostrarGrafo v = new MostrarGrafo(test);
+        this.dispose();
+    }//GEN-LAST:event_showGrafoActionPerformed
+
+    private void addSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSucursalActionPerformed
+        ColocarSucursal v = new ColocarSucursal(test);
+        this.dispose();
+    }//GEN-LAST:event_addSucursalActionPerformed
+
+    private void changeTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeTActionPerformed
+        ManejoDeT v = new ManejoDeT(test);
+        this.dispose();
+    }//GEN-LAST:event_changeTActionPerformed
 
     /**
      * @param args the command line arguments

@@ -3,18 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package intefaz;
-
+import edd.*;
 /**
  *
  * @author guante
  */
 public class MostrarGrafo extends javax.swing.JFrame {
+    static Grafo test;
 
     /**
      * Creates new form MostrarGrafo
      */
-    public MostrarGrafo() {
+    public MostrarGrafo(Grafo g) {
+        this.test = g;
         initComponents();
+        this.setVisible(true);
     }
 
     /**
@@ -28,9 +31,9 @@ public class MostrarGrafo extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        bottonMostrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textAreaPrintearGrafo = new javax.swing.JTextArea();
         back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -42,21 +45,26 @@ public class MostrarGrafo extends javax.swing.JFrame {
         jLabel1.setText("VISUAL DEL GRAFO");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
 
-        jButton1.setText("MOSTRAR GRAFO");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bottonMostrar.setText("MOSTRAR GRAFO");
+        bottonMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bottonMostrarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
+        jPanel1.add(bottonMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        textAreaPrintearGrafo.setColumns(20);
+        textAreaPrintearGrafo.setRows(5);
+        jScrollPane1.setViewportView(textAreaPrintearGrafo);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 450, 260));
 
         back.setText("ATRAS");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
         jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 480));
@@ -64,9 +72,14 @@ public class MostrarGrafo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void bottonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bottonMostrarActionPerformed
+        this.textAreaPrintearGrafo.setText(this.test.mostrar());
+    }//GEN-LAST:event_bottonMostrarActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        Menu v = new Menu(test);
+        this.dispose();
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -98,17 +111,17 @@ public class MostrarGrafo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MostrarGrafo().setVisible(true);
+                new MostrarGrafo(test).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bottonMostrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea textAreaPrintearGrafo;
     // End of variables declaration//GEN-END:variables
 }

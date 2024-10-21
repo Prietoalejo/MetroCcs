@@ -70,11 +70,14 @@ public class ColocarSucursal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSucursalesActionPerformed
-        // TODO add your handling code here:
+        System.out.println("______________________________");        
+        this.test.searchGraf(this.selectorEstaciones.getSelectedItem().toString()).setSucursal(true);
+        System.out.println(        this.test.searchGraf(this.selectorEstaciones.getSelectedItem().toString()).getSucursal());
     }//GEN-LAST:event_botonSucursalesActionPerformed
 
     private void baclActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baclActionPerformed
-        // TODO add your handling code here:
+        Menu v = new Menu(test);
+        this.dispose();
     }//GEN-LAST:event_baclActionPerformed
 
     /**
