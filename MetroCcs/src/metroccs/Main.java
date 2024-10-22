@@ -17,7 +17,17 @@ public class Main {
      */
     public static void main(String[] args) {
         Grafo g = new Grafo(10);
-       Menu test = new Menu(g);
+        Menu test = new Menu(g);
+
+        ColaGrafo e = new ColaGrafo();
+        e.encolar("name1");
+        e.encolar("name2");
+        e.encolar("jaja");
+        e.printCola();
+        e.desencolar();
+        e.printCola();
+         
+       
 
     }
     

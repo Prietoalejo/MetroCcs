@@ -42,6 +42,7 @@ public class CoberturaSucursal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         textAreaSucursal = new javax.swing.JTextArea();
         back = new javax.swing.JButton();
+        botonCoberturaBfs = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -62,7 +63,7 @@ public class CoberturaSucursal extends javax.swing.JFrame {
                 comboBoxSucursalActionPerformed(evt);
             }
         });
-        jPanel1.add(comboBoxSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, -1, -1));
+        jPanel1.add(comboBoxSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, -1, -1));
 
         botonRevisarCobertura.setText("REVISAR COBERTURA SUCURSAL");
         botonRevisarCobertura.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +77,7 @@ public class CoberturaSucursal extends javax.swing.JFrame {
         jLabel1.setText("COBRETURA DE SUCURSAL");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
+        textAreaSucursal.setEditable(false);
         textAreaSucursal.setColumns(20);
         textAreaSucursal.setRows(5);
         jScrollPane1.setViewportView(textAreaSucursal);
@@ -90,6 +92,14 @@ public class CoberturaSucursal extends javax.swing.JFrame {
         });
         jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, -1));
 
+        botonCoberturaBfs.setText("REVISAR COBERTURA POR BFS");
+        botonCoberturaBfs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCoberturaBfsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonCoberturaBfs, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 230, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 480));
 
         pack();
@@ -102,15 +112,28 @@ public class CoberturaSucursal extends javax.swing.JFrame {
 
     private void botonCoberturaSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCoberturaSucursalActionPerformed
         this.textAreaSucursal.setText(this.test.profundidad(this.comboBoxSucursal.getSelectedItem().toString()));
+        
     }//GEN-LAST:event_botonCoberturaSucursalActionPerformed
 
     private void botonRevisarCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRevisarCoberturaActionPerformed
         // TODO add your handling code here:
+        String respuesta = "";
+        Lista a = this.test.verAlcance();
+        if(a.isEmpty()){
+            respuesta = "TODA LA CIUDAD ESTA CUBIERTA";
+        }else{
+            respuesta = "FALTAN POR CUBRIR LAS SIGUIENTES ESTACIONES \n" + a.print();
+        }
+        this.textAreaSucursal.setText(respuesta);
     }//GEN-LAST:event_botonRevisarCoberturaActionPerformed
 
     private void comboBoxSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSucursalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxSucursalActionPerformed
+
+    private void botonCoberturaBfsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCoberturaBfsActionPerformed
+        this.textAreaSucursal.setText(this.test.amplitud(this.comboBoxSucursal.getSelectedItem().toString()));
+    }//GEN-LAST:event_botonCoberturaBfsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,6 +172,7 @@ public class CoberturaSucursal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
+    private javax.swing.JButton botonCoberturaBfs;
     private javax.swing.JButton botonCoberturaSucursal;
     private javax.swing.JButton botonRevisarCobertura;
     private javax.swing.JComboBox<String> comboBoxSucursal;

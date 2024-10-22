@@ -13,7 +13,7 @@ public class Nodo {
     private Nodo pnext;
     private String name;
     private Boolean sucursal;
-    
+    public Boolean cubierta;
     
     public Nodo(){}
 
@@ -21,7 +21,7 @@ public class Nodo {
         this.name = nombre;
         this.adyacente = new Lista();
         this.pnext = null;
-        this.sucursal = false;
+        this.sucursal = this.cubierta = false;
     }
     
     public Lista getAdyacente() {
