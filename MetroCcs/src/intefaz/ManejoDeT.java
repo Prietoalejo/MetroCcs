@@ -84,6 +84,7 @@ public class ManejoDeT extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(rootPane, "El valor de t debe ser un entero");
         }
+        this.entradaT.setText("");
     }//GEN-LAST:event_botonCambioTActionPerformed
 
     private void entradaTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entradaTActionPerformed
