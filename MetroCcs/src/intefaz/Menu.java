@@ -38,6 +38,7 @@ public class Menu extends javax.swing.JFrame {
         showGrafo = new javax.swing.JButton();
         addSucursal = new javax.swing.JButton();
         changeT = new javax.swing.JButton();
+        botonVerCobertura = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -88,6 +89,14 @@ public class Menu extends javax.swing.JFrame {
         });
         jPanel1.add(changeT, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
 
+        botonVerCobertura.setText("VER COBERTURA SUCURSAL");
+        botonVerCobertura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVerCoberturaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonVerCobertura, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 480));
 
         pack();
@@ -117,6 +126,11 @@ public class Menu extends javax.swing.JFrame {
         ManejoDeT v = new ManejoDeT(test);
         this.dispose();
     }//GEN-LAST:event_changeTActionPerformed
+
+    private void botonVerCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerCoberturaActionPerformed
+        CoberturaSucursal v = new CoberturaSucursal(test);
+        this.dispose();
+    }//GEN-LAST:event_botonVerCoberturaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,6 +171,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton AddArista;
     private javax.swing.JButton addStation;
     private javax.swing.JButton addSucursal;
+    private javax.swing.JButton botonVerCobertura;
     private javax.swing.JButton changeT;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

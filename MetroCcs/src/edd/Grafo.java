@@ -90,6 +90,7 @@ public class Grafo {
         return grafo;
     }
     
+    //PENDIENTE.....
     public Nodo searchGraf(String name){
         for (int i = 0; i < maxStation; i++) {
             if(this.vertice[i].getName().equals(name))

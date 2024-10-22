@@ -17,6 +17,12 @@ public class CoberturaSucursal extends javax.swing.JFrame {
         this.test = g;
         initComponents();
         this.setVisible(true);
+        String[] estaciones = this.test.verSucursales();
+        this.comboBoxSucursal.removeAllItems();
+        for (int i = 0; i < estaciones.length; i++) {
+            if(estaciones[i]!= null){
+                this.comboBoxSucursal.addItem(estaciones[i]);}
+        }
     }
 
     /**
@@ -51,6 +57,11 @@ public class CoberturaSucursal extends javax.swing.JFrame {
         jPanel1.add(botonCoberturaSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
 
         comboBoxSucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxSucursal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxSucursalActionPerformed(evt);
+            }
+        });
         jPanel1.add(comboBoxSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, -1, -1));
 
         botonRevisarCobertura.setText("REVISAR COBERTURA SUCURSAL");
@@ -96,6 +107,10 @@ public class CoberturaSucursal extends javax.swing.JFrame {
     private void botonRevisarCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRevisarCoberturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonRevisarCoberturaActionPerformed
+
+    private void comboBoxSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSucursalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxSucursalActionPerformed
 
     /**
      * @param args the command line arguments

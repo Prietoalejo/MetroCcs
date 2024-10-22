@@ -19,6 +19,12 @@ public class ColocarSucursal extends javax.swing.JFrame {
         this.test = g;
         initComponents();
         this.setVisible(true);
+        String[] estaciones = this.test.arregloPosition();
+        this.selectorEstaciones.removeAllItems();
+        for (int i = 0; i < estaciones.length; i++) {
+            this.selectorEstaciones.addItem(estaciones[i]);
+        }
+        this.setVisible(true);
     }
 
     /**
@@ -54,6 +60,11 @@ public class ColocarSucursal extends javax.swing.JFrame {
         jPanel1.add(botonSucursales, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, 30));
 
         selectorEstaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectorEstaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectorEstacionesActionPerformed(evt);
+            }
+        });
         jPanel1.add(selectorEstaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 170, -1));
 
         bacl.setText("ATRAS");
@@ -79,6 +90,10 @@ public class ColocarSucursal extends javax.swing.JFrame {
         Menu v = new Menu(test);
         this.dispose();
     }//GEN-LAST:event_baclActionPerformed
+
+    private void selectorEstacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectorEstacionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectorEstacionesActionPerformed
 
     /**
      * @param args the command line arguments
