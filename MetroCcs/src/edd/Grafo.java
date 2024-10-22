@@ -34,21 +34,34 @@ public class Grafo {
             }
             this.cantidadStation ++;
         }else{
-            Nodo[] aux = new Nodo[this.maxStation + 10];
+            int max = this.maxStation +10;
+            Nodo[] aux = new Nodo[max];
             
             for (int i = 0; i < this.maxStation +10; i++) {
                 aux[i] = new Nodo("");
             }
             
             
-            for (int i = 0; i < this.maxStation; i++) {
-                aux[i] = this.vertice[i];
+            for (int i = 0; i < max; i++) {
+                aux[i] = new Nodo("");
             }
             
             aux[maxStation].setName(name);
             this.cantidadStation ++;
-            this.maxStation += 10;
+            this.maxStation += max;
         }
+    }
+    
+    
+    public String[] verSucursales(){
+        String [] temp = new String[this.maxStation];
+        for (int i = 0; i < this.maxStation; i++) {
+            if(this.vertice[i].getSucursal()){
+                temp[i] = this.vertice[i].getName();    
+            }
+        }
+        return temp;
+        
     }
         
     public void insertArista(String name1, String name2){
@@ -62,8 +75,10 @@ public class Grafo {
                 aux2 = this.vertice[i];
             }         
         }
-        aux1.getAdyacente().insertBegin(name2);
-        aux2.getAdyacente().insertBegin(name1);
+        if(aux1 != null && aux2 != null){
+            aux1.getAdyacente().insertBegin(name2);
+            aux2.getAdyacente().insertBegin(name1);
+        }
     }
     
     public String mostrar(){
@@ -99,23 +114,24 @@ public class Grafo {
     
     
         //procedimiento recursivo
-    public void recorrerProfundidad (int v, boolean [ ] visitados, int pos) {
+    public String recorrerProfundidad (int v, boolean [ ] visitados, int pos, String sucursales) {
     //se marca el vértice v como visitado
         visitados [v] = true;
         //el tratamiento del vértice consiste únicamente en imprimirlo en pantalla
-        System.out.println (this.vertice[v].getName());
-        if(pos == t){return;}
+        sucursales += (this.vertice[v].getName()) + "\n";
+        if(pos == t){return sucursales;}
         //se examinan los vértices adyacentes a v para continuar el recorrido
         for (int i = 0; i < this.maxStation; i++) {
             System.out.println(this.existeArista (v, i));
             if ((v != i) && (!visitados [i]) && (this.existeArista (v, i)) )
-                recorrerProfundidad (i, visitados, pos +1);
+                sucursales = recorrerProfundidad (i, visitados, pos +1, sucursales);
             }
+        return sucursales;
         }
 
 
     //procedimiento no recursivo
-    public void profundidad (String estacion) {
+    public String profundidad (String estacion) {
         Nodo est = this.searchGraf(estacion);
         int v = 0;
         boolean visitados [ ] = new boolean [this.maxStation];
@@ -125,7 +141,7 @@ public class Grafo {
                 v = i;
             }
         }
-        this.recorrerProfundidad ( v, visitados, 1);
+        return this.recorrerProfundidad(v, visitados,0,"");
 
 
         }

@@ -16,7 +16,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Grafo g = new Grafo(1);
+        Grafo g = new Grafo(10);
        Menu test = new Menu(g);
 
     }

@@ -8,18 +8,15 @@ import edd.*;
  *
  * @author guante
  */
-public class VentanaArista extends javax.swing.JFrame {
-    
+public class CoberturaSucursal extends javax.swing.JFrame {
     static Grafo test;
-
     /**
-     * Creates new form VentanaArista
+     * Creates new form CoberturaSucursal
      */
-    public VentanaArista(Grafo g) {
+    public CoberturaSucursal(Grafo g) {
         this.test = g;
-        this.setVisible(true);
-        
         initComponents();
+        this.setVisible(true);
     }
 
     /**
@@ -32,10 +29,12 @@ public class VentanaArista extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        botonCoberturaSucursal = new javax.swing.JButton();
+        comboBoxSucursal = new javax.swing.JComboBox<>();
+        botonRevisarCobertura = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        botonAddArista = new javax.swing.JButton();
-        espacioUno = new javax.swing.JTextField();
-        espacioDos = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textAreaSucursal = new javax.swing.JTextArea();
         back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,31 +42,34 @@ public class VentanaArista extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        botonCoberturaSucursal.setText("VER COBERTURA SUCURSAL");
+        botonCoberturaSucursal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCoberturaSucursalActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonCoberturaSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
+
+        comboBoxSucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(comboBoxSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, -1, -1));
+
+        botonRevisarCobertura.setText("REVISAR COBERTURA SUCURSAL");
+        botonRevisarCobertura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRevisarCoberturaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonRevisarCobertura, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
+
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        jLabel1.setText("VENTA DE ARISTAS");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
+        jLabel1.setText("COBRETURA DE SUCURSAL");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
-        botonAddArista.setText("INSERTAR ARISTAS");
-        botonAddArista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAddAristaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(botonAddArista, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, -1));
+        textAreaSucursal.setColumns(20);
+        textAreaSucursal.setRows(5);
+        jScrollPane1.setViewportView(textAreaSucursal);
 
-        espacioUno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                espacioUnoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(espacioUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 190, -1));
-
-        espacioDos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                espacioDosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(espacioDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 190, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 450, 320));
 
         back.setText("ATRAS");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -75,31 +77,25 @@ public class VentanaArista extends javax.swing.JFrame {
                 backActionPerformed(evt);
             }
         });
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonAddAristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddAristaActionPerformed
-        this.test.insertArista(this.espacioUno.getText(), this.espacioDos.getText());
-        this.espacioUno.setText("");
-        this.espacioDos.setText("");
-    }//GEN-LAST:event_botonAddAristaActionPerformed
-
-    private void espacioUnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espacioUnoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_espacioUnoActionPerformed
-
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        Menu v = new Menu(test);
+        Menu v = new Menu (test);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
 
-    private void espacioDosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espacioDosActionPerformed
+    private void botonCoberturaSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCoberturaSucursalActionPerformed
+        this.textAreaSucursal.setText(this.test.profundidad(this.comboBoxSucursal.getSelectedItem().toString()));
+    }//GEN-LAST:event_botonCoberturaSucursalActionPerformed
+
+    private void botonRevisarCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRevisarCoberturaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_espacioDosActionPerformed
+    }//GEN-LAST:event_botonRevisarCoberturaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,30 +114,32 @@ public class VentanaArista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaArista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CoberturaSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaArista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CoberturaSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaArista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CoberturaSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaArista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CoberturaSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaArista(test).setVisible(true);
+                new CoberturaSucursal(test).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-    private javax.swing.JButton botonAddArista;
-    private javax.swing.JTextField espacioDos;
-    private javax.swing.JTextField espacioUno;
+    private javax.swing.JButton botonCoberturaSucursal;
+    private javax.swing.JButton botonRevisarCobertura;
+    private javax.swing.JComboBox<String> comboBoxSucursal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea textAreaSucursal;
     // End of variables declaration//GEN-END:variables
 }

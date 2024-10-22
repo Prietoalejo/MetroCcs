@@ -21,7 +21,7 @@ public class Nodo {
         this.name = nombre;
         this.adyacente = new Lista();
         this.pnext = null;
-        this.sucursal = null;
+        this.sucursal = false;
     }
     
     public Lista getAdyacente() {
