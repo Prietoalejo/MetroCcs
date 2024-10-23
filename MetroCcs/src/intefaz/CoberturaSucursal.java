@@ -4,6 +4,7 @@
  */
 package intefaz;
 import edd.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author guante
@@ -23,6 +24,7 @@ public class CoberturaSucursal extends javax.swing.JFrame {
             if(estaciones[i]!= null){
                 this.comboBoxSucursal.addItem(estaciones[i]);}
         }
+        
     }
 
     /**
@@ -43,6 +45,7 @@ public class CoberturaSucursal extends javax.swing.JFrame {
         textAreaSucursal = new javax.swing.JTextArea();
         back = new javax.swing.JButton();
         botonCoberturaBfs = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -100,6 +103,14 @@ public class CoberturaSucursal extends javax.swing.JFrame {
         });
         jPanel1.add(botonCoberturaBfs, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 230, -1));
 
+        jButton1.setText("Sugerir sucursales");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 480));
 
         pack();
@@ -111,12 +122,16 @@ public class CoberturaSucursal extends javax.swing.JFrame {
     }//GEN-LAST:event_backActionPerformed
 
     private void botonCoberturaSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCoberturaSucursalActionPerformed
+        try{
         this.textAreaSucursal.setText(this.test.profundidad(this.comboBoxSucursal.getSelectedItem().toString()));
-        
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "NO HAY SUCURSALES SELECCIONADAS");
+        }
     }//GEN-LAST:event_botonCoberturaSucursalActionPerformed
 
     private void botonRevisarCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRevisarCoberturaActionPerformed
         // TODO add your handling code here:
+       
         String respuesta = "";
         Lista a = this.test.verAlcance();
         if(a.isEmpty()){
@@ -132,8 +147,22 @@ public class CoberturaSucursal extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxSucursalActionPerformed
 
     private void botonCoberturaBfsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCoberturaBfsActionPerformed
+        try{
         this.textAreaSucursal.setText(this.test.amplitud(this.comboBoxSucursal.getSelectedItem().toString()));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "NO HAY SUCURSALES SELECCIONADAS");
+        }
     }//GEN-LAST:event_botonCoberturaBfsActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+        Lista sugerencia = this.test.sugerirSucursales(this.test.verAlcance());
+        this.textAreaSucursal.setText(sugerencia.print());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "NO HAY SUCURSALES SELECCIONADAS");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,6 +205,7 @@ public class CoberturaSucursal extends javax.swing.JFrame {
     private javax.swing.JButton botonCoberturaSucursal;
     private javax.swing.JButton botonRevisarCobertura;
     private javax.swing.JComboBox<String> comboBoxSucursal;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

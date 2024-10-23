@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package intefaz;
+
 import edd.*;
 
 /**
@@ -10,8 +11,9 @@ import edd.*;
  * @author guante
  */
 public class ColocarSucursal extends javax.swing.JFrame {
-    
+
     static Grafo test;
+
     /**
      * Creates new form ColocarSucursal
      */
@@ -41,6 +43,7 @@ public class ColocarSucursal extends javax.swing.JFrame {
         botonSucursales = new javax.swing.JButton();
         selectorEstaciones = new javax.swing.JComboBox<>();
         bacl = new javax.swing.JButton();
+        botonSucursales1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -57,7 +60,7 @@ public class ColocarSucursal extends javax.swing.JFrame {
                 botonSucursalesActionPerformed(evt);
             }
         });
-        jPanel1.add(botonSucursales, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, 30));
+        jPanel1.add(botonSucursales, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, -1, 30));
 
         selectorEstaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         selectorEstaciones.addActionListener(new java.awt.event.ActionListener() {
@@ -75,15 +78,21 @@ public class ColocarSucursal extends javax.swing.JFrame {
         });
         jPanel1.add(bacl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, -1, -1));
 
+        botonSucursales1.setText("QUITAR SUCURSAL SELECIONADA");
+        botonSucursales1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSucursales1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonSucursales1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, 30));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSucursalesActionPerformed
-        System.out.println("______________________________");        
         this.test.searchGraf(this.selectorEstaciones.getSelectedItem().toString()).setSucursal(true);
-        System.out.println(        this.test.searchGraf(this.selectorEstaciones.getSelectedItem().toString()).getSucursal());
     }//GEN-LAST:event_botonSucursalesActionPerformed
 
     private void baclActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baclActionPerformed
@@ -94,6 +103,12 @@ public class ColocarSucursal extends javax.swing.JFrame {
     private void selectorEstacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectorEstacionesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_selectorEstacionesActionPerformed
+
+    private void botonSucursales1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSucursales1ActionPerformed
+        // TODO add your handling code here:
+        this.test.searchGraf(this.selectorEstaciones.getSelectedItem().toString()).setSucursal(false);
+
+    }//GEN-LAST:event_botonSucursales1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,6 +148,7 @@ public class ColocarSucursal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bacl;
     private javax.swing.JButton botonSucursales;
+    private javax.swing.JButton botonSucursales1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> selectorEstaciones;

@@ -8,11 +8,15 @@ package edd;
  *
  * @author Alejandro Prieto
  */
+
+
 public class Nodo {
     private Lista adyacente;
     private Nodo pnext;
     private String name;
+    /* Guarda si la estacion es sucursal o no*/
     private Boolean sucursal;
+    /*Guarda si la estacion esta cubierta por una sucursal cercana o no*/
     public Boolean cubierta;
     
     public Nodo(){}

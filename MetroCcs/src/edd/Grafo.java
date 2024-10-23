@@ -9,10 +9,12 @@ package edd;
  * @author Alejandro Prieto
  */
 public class Grafo {
-
+    /*Guarda todos los vertices (estaciones) del grafo*/
     private Nodo[] vertice;
+    /*Es el numero de vertices*/
     private int maxStation;
     private int cantidadStation;
+    /*Numero de estaciones que alcanza una sucursal*/
     public int t;
 
     public Grafo(int entrada) {
@@ -20,6 +22,7 @@ public class Grafo {
         this.t = 2;
         this.cantidadStation = 0;
         this.vertice = new Nodo[entrada];
+        /*Se inicializa el arreglo de Nodos*/
         for (int i = 0; i < entrada; i++) {
             this.vertice[i] = new Nodo("");
         }
@@ -28,6 +31,7 @@ public class Grafo {
     public void insertGrafo(String name) {
         if (maxStation != cantidadStation) {
             for (int i = 0; i < maxStation; i++) {
+                /*Si el nodo esta vacio (su ombre es "") inserta la estacion*/
                 if (this.vertice[i].getName().equals("")) {
                     this.vertice[i].setName(name);
                     break;
@@ -35,23 +39,22 @@ public class Grafo {
             }
             this.cantidadStation++;
         } else {
+            /*Si el arreglo esta lleno, crea una copia con mas capacidad e inserta la nueva estacion*/
             int max = this.maxStation + 10;
             Nodo[] aux = new Nodo[max];
-
+            /*Inicializa el nuevo arreglo*/
             for (int i = 0; i < this.maxStation + 10; i++) {
                 aux[i] = new Nodo("");
             }
-
-            for (int i = 0; i < max; i++) {
-                aux[i] = new Nodo("");
-            }
-
+            /*Establece el nuevo arreglo como el arreglo de verticces de; grafo*/
             aux[maxStation].setName(name);
+            this.vertice = aux;
             this.cantidadStation++;
             this.maxStation += max;
         }
     }
 
+    /*Muestra las estaciones que tienen sucursal*/
     public String[] verSucursales() {
         String[] temp = new String[this.maxStation];
         for (int i = 0; i < this.maxStation; i++) {
@@ -63,6 +66,7 @@ public class Grafo {
 
     }
 
+    /*Busca las estaciones y, de existir, agrega una a la lista de adyacencia de la otra y visceversa*/
     public void insertArista(String name1, String name2) {
         Nodo aux1 = null;
         Nodo aux2 = null;
@@ -155,7 +159,8 @@ public class Grafo {
             }
         }
         return this.recorrerProfundidad(v, visitados, 0, "");
-
+        /*v es la posicion en this.vertices de la estacion, 0 es la variable que lleva la cuenta de 
+        cuantas estaciones faltan para llegar a t, y "" es donde guardamos las estaciones visitadas*/
     }
 
     public String amplitud(String estacion) {
@@ -181,7 +186,7 @@ public class Grafo {
                 nombre = cola.desencolar(); //desencolar y tratar el vértice
                 v = this.searchPosGraf(nombre);
                 recorrido += (nombre) + "\n";
-                
+
 //y encolo los nodos adyacentes a v.
                 for (int j = 0; j < this.maxStation; j++) {
                     if ((v != j) && (this.existeArista(v, j)) && (!visitados[j])) {
@@ -206,21 +211,73 @@ public class Grafo {
         }
         return recorrido;
     }
-    
-    
-    public Lista verAlcance(){
+
+    public Lista verAlcance() {
         Lista sinCubrir = new Lista();
         for (int i = 0; i < this.maxStation; i++) {
-            if(this.vertice[i].getSucursal()){
+            if (this.vertice[i].getSucursal()) {
                 this.profundidad(this.vertice[i].getName());
             }
         }
         for (int i = 0; i < this.maxStation; i++) {
-            if(!this.vertice[i].cubierta && !this.vertice[i].getName().equals("")){
-                sinCubrir.insertBegin(this.vertice[i].getName());              
-            }           
+            if (!this.vertice[i].cubierta && !this.vertice[i].getName().equals("")) {
+                sinCubrir.insertBegin(this.vertice[i].getName());
+            }
         }
         return sinCubrir;
+    }
+
+    public Lista sugerirSucursales(Lista sinCubrir) {
+        Lista sugeridas = new Lista();
+        while (!sinCubrir.isEmpty()) {
+            sugeridas.insertBegin(sinCubrir.getHead().getName());
+            this.searchGraf(sinCubrir.getHead().getName()).setSucursal(true);
+            sinCubrir = this.verAlcance();
+            System.out.println(sinCubrir.print());
+        }
+        Nodo aux = sugeridas.getHead();
+        while(aux != null){
+            this.profundidadDesmarque(aux.getName());
+            aux = aux.getPnext();
+        }
+        this.verAlcance();
+        return sugeridas;
+
+    }
+    
+    
+    private void recorrerProfundidadDesmarcar(int v, boolean[] visitados, int pos) {
+        //se marca el vértice v como visitado
+        visitados[v] = true;
+        this.vertice[v].cubierta = false;
+        //el tratamiento del vértice consiste únicamente en imprimirlo en pantalla
+        
+        if (pos == t) {
+            return;
+        }
+        //se examinan los vértices adyacentes a v para continuar el recorrido
+        for (int i = 0; i < this.maxStation; i++) {
+            if ((v != i) && (!visitados[i]) && (this.existeArista(v, i))) {
+                 recorrerProfundidadDesmarcar(i, visitados, pos + 1);
+            }
+        }
+        return ;
+    }
+
+    //procedimiento no recursivo
+    public void profundidadDesmarque(String estacion) {
+        Nodo est = this.searchGraf(estacion);
+        est.setSucursal(false);
+        int v = 0;
+        boolean visitados[] = new boolean[this.maxStation];
+        for (int i = 0; i < this.maxStation; i++) { //inicializar vector con campos false
+            visitados[i] = false;
+            if (this.vertice[i].getName().equals(estacion)) {
+                v = i;
+            }
+        }
+         this.recorrerProfundidadDesmarcar(v, visitados, 0);
+
     }
 
 }
