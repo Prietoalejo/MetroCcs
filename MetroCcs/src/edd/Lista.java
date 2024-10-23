@@ -9,7 +9,7 @@ package edd;
  * @author guante
  */
 public class Lista {
-        public Nodo head;
+    public Nodo head;
     public int size;
     
     public Lista(){

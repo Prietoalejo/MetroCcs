@@ -74,6 +74,9 @@ public class MostrarGrafo extends javax.swing.JFrame {
 
     private void bottonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bottonMostrarActionPerformed
         this.textAreaPrintearGrafo.setText(this.test.mostrar());
+        
+        /*Para graficarlo con graphstream, deben pasar su grafo al de la libreria. Es decir,
+        deben insertar cada nodo del arreglo en el grafo de graphstream, y marcar cada arista.*/
     }//GEN-LAST:event_bottonMostrarActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
