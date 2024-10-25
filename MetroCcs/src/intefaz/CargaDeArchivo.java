@@ -6,6 +6,7 @@ package intefaz;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Iterator;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -87,14 +88,13 @@ public class CargaDeArchivo extends javax.swing.JFrame {
 
         // Mostrar el diálogo de abrir archivo
         int resultado = selectorArchivo.showOpenDialog(null);
-        
+
         // Verificar si el usuario seleccionó un archivo
         if (resultado == JFileChooser.APPROVE_OPTION) {
             // Obtener el archivo seleccionado
             File archivoSeleccionado = selectorArchivo.getSelectedFile();
             System.out.println("Archivo seleccionado: " + archivoSeleccionado.getAbsolutePath());
-            
-            
+
             // Leer el contenido del archivo y guardarlo en un String
             StringBuilder contenidoArchivo = new StringBuilder(); // Para almacenar todo el contenido
             try {
@@ -107,15 +107,32 @@ public class CargaDeArchivo extends javax.swing.JFrame {
 
                 // Convertir StringBuilder a String
                 String contenidoComoString = contenidoArchivo.toString();
-                
+
                 // Convertir el contenido a un objeto JSON
                 JSONObject jsonObj = new JSONObject(contenidoComoString);
                 System.out.println("Objeto JSON:");
                 System.out.println(jsonObj.toString(4)); // Formateado con indentación
 
-                
-                
-                
+                // Iterar sobre las claves del JSON
+                Iterator<String> keys = jsonObj.keys(); // Obtener las claves del objeto JSON
+
+                // Recorrer las claves
+                while (keys.hasNext()) {
+                    String key = keys.next(); // Obtener la clave actual
+                    Object value = jsonObj.get(key); // Obtener el valor asociado a la clave
+
+                    // Imprimir clave y valor
+                    System.out.println("Clave: " + key);
+                    System.out.println("Valor: " + value);
+
+                    // Verificar si el valor es otro JSONObject (para iterar de forma anidada)
+                    if (value instanceof JSONObject) {
+                        JSONObject nestedObject = (JSONObject) value;
+                        System.out.println("Este valor es otro JSONObject:");
+                        System.out.println(nestedObject.toString(4)); // Formatear el objeto anidado
+                    }
+                }
+
             } catch (FileNotFoundException e) {
                 System.out.println("Archivo no encontrado");
                 e.printStackTrace();
@@ -123,10 +140,11 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                 System.out.println("El contenido no es un JSON válido");
                 e.printStackTrace();
             }
-            
+
         } else {
             System.out.println("No se seleccionó ningún archivo");
         }
+
     }//GEN-LAST:event_botonCargarArchivoActionPerformed
 
     /**
