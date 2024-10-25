@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.json.JSONObject;
 
 /**
  *
@@ -106,10 +107,20 @@ public class CargaDeArchivo extends javax.swing.JFrame {
 
                 // Convertir StringBuilder a String
                 String contenidoComoString = contenidoArchivo.toString();
-                System.out.println("Contenido del archivo:");
-                System.out.println(contenidoComoString);
+                
+                // Convertir el contenido a un objeto JSON
+                JSONObject jsonObj = new JSONObject(contenidoComoString);
+                System.out.println("Objeto JSON:");
+                System.out.println(jsonObj.toString(4)); // Formateado con indentación
+
+                
+                
+                
             } catch (FileNotFoundException e) {
                 System.out.println("Archivo no encontrado");
+                e.printStackTrace();
+            } catch (org.json.JSONException e) {
+                System.out.println("El contenido no es un JSON válido");
                 e.printStackTrace();
             }
             
