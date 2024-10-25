@@ -4,6 +4,10 @@
  */
 package intefaz;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author adcd_
@@ -71,7 +75,26 @@ public class CargaDeArchivo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarArchivoActionPerformed
+        // Crear una instancia de JFileChooser
+        JFileChooser selectorArchivo = new JFileChooser();
+
+        // Crear un filtro para permitir solo archivos .json
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos JSON", "json");
+        selectorArchivo.setFileFilter(filtro);
+
+        // Mostrar el diálogo de abrir archivo
+        int resultado = selectorArchivo.showOpenDialog(null);
         
+        // Verificar si el usuario seleccionó un archivo
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            // Obtener el archivo seleccionado
+            File archivoSeleccionado = selectorArchivo.getSelectedFile();
+            System.out.println("Archivo seleccionado: " + archivoSeleccionado.getAbsolutePath());
+
+            
+        } else {
+            System.out.println("No se seleccionó ningún archivo");
+        }
     }//GEN-LAST:event_botonCargarArchivoActionPerformed
 
     /**
