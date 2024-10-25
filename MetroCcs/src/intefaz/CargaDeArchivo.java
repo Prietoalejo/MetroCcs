@@ -5,6 +5,8 @@
 package intefaz;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -90,7 +92,26 @@ public class CargaDeArchivo extends javax.swing.JFrame {
             // Obtener el archivo seleccionado
             File archivoSeleccionado = selectorArchivo.getSelectedFile();
             System.out.println("Archivo seleccionado: " + archivoSeleccionado.getAbsolutePath());
+            
+            
+            // Leer el contenido del archivo y guardarlo en un String
+            StringBuilder contenidoArchivo = new StringBuilder(); // Para almacenar todo el contenido
+            try {
+                Scanner lector = new Scanner(archivoSeleccionado);
+                while (lector.hasNextLine()) {
+                    String linea = lector.nextLine();
+                    contenidoArchivo.append(linea).append("\n"); // Agregar la línea al StringBuilder
+                }
+                lector.close();
 
+                // Convertir StringBuilder a String
+                String contenidoComoString = contenidoArchivo.toString();
+                System.out.println("Contenido del archivo:");
+                System.out.println(contenidoComoString);
+            } catch (FileNotFoundException e) {
+                System.out.println("Archivo no encontrado");
+                e.printStackTrace();
+            }
             
         } else {
             System.out.println("No se seleccionó ningún archivo");
