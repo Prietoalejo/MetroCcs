@@ -4,6 +4,7 @@
  */
 package intefaz;
 
+<<<<<<< HEAD
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,6 +13,16 @@ import java.util.Map;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+=======
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Iterator;
+import java.util.Scanner;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.json.JSONObject;
+
+>>>>>>> develop
 /**
  *
  * @author adcd_
@@ -96,18 +107,27 @@ public class CargaDeArchivo extends javax.swing.JFrame {
             System.out.println("Archivo seleccionado: " + archivoSeleccionado.getAbsolutePath());
 
             // Leer el contenido del archivo y guardarlo en un String
+<<<<<<< HEAD
             StringBuilder contenidoArchivo = new StringBuilder();
+=======
+            StringBuilder contenidoArchivo = new StringBuilder(); // Para almacenar todo el contenido
+>>>>>>> develop
             try {
                 Scanner lector = new Scanner(archivoSeleccionado);
                 while (lector.hasNextLine()) {
                     String linea = lector.nextLine();
+<<<<<<< HEAD
                     contenidoArchivo.append(linea).append("\n");
+=======
+                    contenidoArchivo.append(linea).append("\n"); // Agregar la línea al StringBuilder
+>>>>>>> develop
                 }
                 lector.close();
 
                 // Convertir StringBuilder a String
                 String contenidoComoString = contenidoArchivo.toString();
 
+<<<<<<< HEAD
                 // Usar Gson para convertir el JSON en un Map
                 Gson gson = new Gson();
                 Map<String, List<Map<String, Object>>> metroDeCaracas = gson.fromJson(contenidoComoString, Map.class);
@@ -148,14 +168,43 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                 }
                             }
                         }
+=======
+                // Convertir el contenido a un objeto JSON
+                JSONObject jsonObj = new JSONObject(contenidoComoString);
+                System.out.println("Objeto JSON:");
+                System.out.println(jsonObj.toString(4)); // Formateado con indentación
+
+                // Iterar sobre las claves del JSON
+                Iterator<String> keys = jsonObj.keys(); // Obtener las claves del objeto JSON
+
+                // Recorrer las claves
+                while (keys.hasNext()) {
+                    String key = keys.next(); // Obtener la clave actual
+                    Object value = jsonObj.get(key); // Obtener el valor asociado a la clave
+
+                    // Imprimir clave y valor
+                    System.out.println("Clave: " + key);
+                    System.out.println("Valor: " + value);
+
+                    // Verificar si el valor es otro JSONObject (para iterar de forma anidada)
+                    if (value instanceof JSONObject) {
+                        JSONObject nestedObject = (JSONObject) value;
+                        System.out.println("Este valor es otro JSONObject:");
+                        System.out.println(nestedObject.toString(4)); // Formatear el objeto anidado
+>>>>>>> develop
                     }
                 }
 
             } catch (FileNotFoundException e) {
                 System.out.println("Archivo no encontrado");
                 e.printStackTrace();
+<<<<<<< HEAD
             } catch (Exception e) {
                 System.out.println("Error procesando el archivo");
+=======
+            } catch (org.json.JSONException e) {
+                System.out.println("El contenido no es un JSON válido");
+>>>>>>> develop
                 e.printStackTrace();
             }
 
