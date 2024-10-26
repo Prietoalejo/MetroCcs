@@ -128,14 +128,21 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                             if (lineaEntry.getValue() instanceof List) {
                                 List<Object> estaciones = (List<Object>) lineaEntry.getValue();
 
-                                // Iterar sobre las estaciones
-                                for (Object estacion : estaciones) {
+                                // Iterar sobre las estaciones y mostrar la estación anterior y siguiente
+                                for (int i = 0; i < estaciones.size(); i++) {
+                                    Object estacion = estaciones.get(i);
+
+                                    // Obtener la estación anterior y siguiente (si existen)
+                                    String estacionAnterior = (i > 0) ? estaciones.get(i - 1).toString() : "N/A";
+                                    String estacionSiguiente = (i < estaciones.size() - 1) ? estaciones.get(i + 1).toString() : "N/A";
+
+                                    // Manejar el caso donde la estación es una conexión (Map)
                                     if (estacion instanceof String) {
-                                        System.out.println(" - " + estacion);
+                                        System.out.println("Estación actual: " + estacion + " - Anterior: " + estacionAnterior + " - Siguiente: " + estacionSiguiente);
                                     } else if (estacion instanceof Map) {
                                         Map<String, String> estacionConectada = (Map<String, String>) estacion;
                                         for (Map.Entry<String, String> conexion : estacionConectada.entrySet()) {
-                                            System.out.println(" - " + conexion.getKey() + " (conexión: " + conexion.getValue() + ")");
+                                            System.out.println("Estacion actual: " + conexion.getKey() + " (conexion: " + conexion.getValue() + ") - Anterior: " + estacionAnterior + " - Siguiente: " + estacionSiguiente);
                                         }
                                     }
                                 }
