@@ -4,13 +4,18 @@
  */
 package intefaz;
 
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import javax.swing.*;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Iterator;
-import java.util.Scanner;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import org.json.JSONObject;
+import java.io.FileReader;
+import java.io.IOException;
+
+
+
 
 /**
  *
@@ -79,72 +84,93 @@ public class CargaDeArchivo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarArchivoActionPerformed
-        // Crear una instancia de JFileChooser
-        JFileChooser selectorArchivo = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Selecciona un archivo JSON");
 
-        // Crear un filtro para permitir solo archivos .json
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos JSON", "json");
-        selectorArchivo.setFileFilter(filtro);
+        int seleccion = fileChooser.showOpenDialog(this);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File archivoSeleccionado = fileChooser.getSelectedFile();
 
-        // Mostrar el diálogo de abrir archivo
-        int resultado = selectorArchivo.showOpenDialog(null);
+            try (FileReader reader = new FileReader(archivoSeleccionado)) {
+                Gson gson = new Gson();
+                JsonObject metroDeCaracas = gson.fromJson(reader, JsonObject.class);
 
-        // Verificar si el usuario seleccionó un archivo
-        if (resultado == JFileChooser.APPROVE_OPTION) {
-            // Obtener el archivo seleccionado
-            File archivoSeleccionado = selectorArchivo.getSelectedFile();
-            System.out.println("Archivo seleccionado: " + archivoSeleccionado.getAbsolutePath());
+                System.out.println("Archivo JSON cargado exitosamente.");
 
-            // Leer el contenido del archivo y guardarlo en un String
-            StringBuilder contenidoArchivo = new StringBuilder(); // Para almacenar todo el contenido
-            try {
-                Scanner lector = new Scanner(archivoSeleccionado);
-                while (lector.hasNextLine()) {
-                    String linea = lector.nextLine();
-                    contenidoArchivo.append(linea).append("\n"); // Agregar la línea al StringBuilder
-                }
-                lector.close();
+                // Verificar si contiene el sistema "Metro de Caracas"
+                if (metroDeCaracas.has("Metro de Caracas")) {
+                    JsonElement lineasElement = metroDeCaracas.get("Metro de Caracas");
 
-                // Convertir StringBuilder a String
-                String contenidoComoString = contenidoArchivo.toString();
+                    if (lineasElement != null && lineasElement.isJsonArray()) {
+                        System.out.println("El sistema de metro es un arreglo. Procesando cada elemento...");
 
-                // Convertir el contenido a un objeto JSON
-                JSONObject jsonObj = new JSONObject(contenidoComoString);
-                System.out.println("Objeto JSON:");
-                System.out.println(jsonObj.toString(4)); // Formateado con indentación
+                        for (JsonElement lineaElement : lineasElement.getAsJsonArray()) {
+                            if (lineaElement.isJsonObject()) {
+                                JsonObject lineasObject = lineaElement.getAsJsonObject();
 
-                // Iterar sobre las claves del JSON
-                Iterator<String> keys = jsonObj.keys(); // Obtener las claves del objeto JSON
+                                for (String nombreLinea : lineasObject.keySet()) {
+                                    System.out.println("Línea: " + nombreLinea);
+                                    JsonElement estacionesElement = lineasObject.get(nombreLinea);
 
-                // Recorrer las claves
-                while (keys.hasNext()) {
-                    String key = keys.next(); // Obtener la clave actual
-                    Object value = jsonObj.get(key); // Obtener el valor asociado a la clave
+                                    // Verificar si las estaciones están en formato de objeto o de array
+                                    if (estacionesElement != null && estacionesElement.isJsonObject()) {
+                                        JsonObject estacionesObject = estacionesElement.getAsJsonObject();
+                                        String estacionAnterior = "N/A";
+                                        boolean primeraEstacion = true;
 
-                    // Imprimir clave y valor
-                    System.out.println("Clave: " + key);
-                    System.out.println("Valor: " + value);
+                                        for (String estacionNombre : estacionesObject.keySet()) {
+                                            System.out.println("Procesando estación: " + estacionNombre);
+                                            JsonElement estacionData = estacionesObject.get(estacionNombre);
 
-                    // Verificar si el valor es otro JSONObject (para iterar de forma anidada)
-                    if (value instanceof JSONObject) {
-                        JSONObject nestedObject = (JSONObject) value;
-                        System.out.println("Este valor es otro JSONObject:");
-                        System.out.println(nestedObject.toString(4)); // Formatear el objeto anidado
+                                            if (estacionData != null && estacionData.isJsonObject()) {
+                                                JsonObject estacionConectada = estacionData.getAsJsonObject();
+                                                for (String conexionNombre : estacionConectada.keySet()) {
+                                                    String conexionLinea = estacionConectada.get(conexionNombre).getAsString();
+                                                    System.out.println("Estación conexión: " + conexionNombre + " (conexión: " + conexionLinea + ")");
+                                                }
+                                            } else if (estacionData != null && estacionData.isJsonPrimitive()) {
+                                                // Estación regular
+                                                if (!primeraEstacion) {
+                                                    System.out.println("Estación regular: " + estacionNombre + " - Anterior: " + estacionAnterior);
+                                                }
+                                                estacionAnterior = estacionNombre;
+                                                primeraEstacion = false;
+                                            }
+                                        }
+                                    } else if (estacionesElement != null && estacionesElement.isJsonArray()) {
+                                        System.out.println("Estaciones de la línea en formato de array.");
+                                        for (JsonElement estacionElement : estacionesElement.getAsJsonArray()) {
+                                            if (estacionElement.isJsonPrimitive()) {
+                                                System.out.println("Estación: " + estacionElement.getAsString());
+                                            } else if (estacionElement.isJsonObject()) {
+                                                // Tratamiento especial para estaciones en formato de objeto
+                                                JsonObject estacionObj = estacionElement.getAsJsonObject();
+                                                for (String estacionNombre : estacionObj.keySet()) {
+                                                    System.out.println("Estación: " + estacionNombre);
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        System.out.println("Formato inesperado para las estaciones de la línea " + nombreLinea);
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        System.out.println("El formato de 'Metro de Caracas' no es compatible o está vacío.");
                     }
+                } else {
+                    System.out.println("'Metro de Caracas' no encontrado en el JSON.");
                 }
 
-            } catch (FileNotFoundException e) {
-                System.out.println("Archivo no encontrado");
+            } catch (IOException e) {
+                System.out.println("Error leyendo el archivo");
                 e.printStackTrace();
-            } catch (org.json.JSONException e) {
-                System.out.println("El contenido no es un JSON válido");
+            } catch (Exception e) {
+                System.out.println("Error procesando el archivo");
                 e.printStackTrace();
             }
-
-        } else {
-            System.out.println("No se seleccionó ningún archivo");
         }
-
     }//GEN-LAST:event_botonCargarArchivoActionPerformed
 
     /**
