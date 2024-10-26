@@ -84,7 +84,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarArchivoActionPerformed
-        // Abrimos un selector de archivos para que el usuario elija el archivo JSON
+         // Abrimos un selector de archivos para que el usuario elija el archivo JSON
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Selecciona un archivo JSON");
 
@@ -93,7 +93,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
         if (seleccion == JFileChooser.APPROVE_OPTION) {
             File archivoSeleccionado = fileChooser.getSelectedFile();
 
-            try (FileReader reader = new FileReader(archivoSeleccionado)) {
+            try (FileReader reader = new FileReader(archivoSeleccionado)){
                 // Creamos un objeto Gson para manejar la lectura del JSON
                 Gson gson = new Gson();
                 JsonObject metroDeCaracas = gson.fromJson(reader, JsonObject.class);
@@ -128,7 +128,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
 
                                         // Iteramos sobre las estaciones en formato objeto (clave-valor)
                                         for (String estacionNombre : estacionesObject.keySet()) {
-                                            System.out.println("Procesando estación: " + estacionNombre);
+                                            System.out.println("Procesando estacion: " + estacionNombre);
                                             JsonElement estacionData = estacionesObject.get(estacionNombre);
 
                                             if (estacionData != null && estacionData.isJsonObject()) {
@@ -137,7 +137,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                                 for (String conexionNombre : estacionConectada.keySet()) {
                                                     // Imprimimos la conexión de la estación
                                                     String conexionLinea = estacionConectada.get(conexionNombre).getAsString();
-                                                    System.out.println("Estación conexión: " + conexionNombre + " (conexión: " + conexionLinea + ")");
+                                                    System.out.println("Estación conexion: " + conexionNombre + " (conexion: " + conexionLinea + ")");
                                                 }
                                             } else if (estacionData != null && estacionData.isJsonPrimitive()) {
                                                 // Caso: estación regular (representada como String)
@@ -150,19 +150,45 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                             }
                                         }
                                     } else if (estacionesElement != null && estacionesElement.isJsonArray()) {
-                                        // Caso: estaciones en formato de array
+                                        // Suponiendo un número máximo de estaciones, ajusta según sea necesario
+                                        int MAX_ESTACIONES = 0;
+                                        for (JsonElement estacionElement : estacionesElement.getAsJsonArray()){
+                                            MAX_ESTACIONES++;
+                                        }
+                                        
+                                        String[] estacionesArray = new String[MAX_ESTACIONES];
+                                        int contadorEstaciones = 0;
+                                        
+                                        
+
+                                        // Iteramos sobre las estaciones en formato de array
                                         System.out.println("Estaciones de la línea en formato de array.");
                                         for (JsonElement estacionElement : estacionesElement.getAsJsonArray()) {
                                             if (estacionElement.isJsonPrimitive()) {
                                                 // Caso: estación en formato String
-                                                System.out.println("Estación: " + estacionElement.getAsString());
+                                                String estacionNombre = estacionElement.getAsString();
+                                                System.out.println("Estación: " + estacionNombre);
+                                                // Almacenamos la estación en el array
+                                                estacionesArray[contadorEstaciones++] = estacionNombre; 
                                             } else if (estacionElement.isJsonObject()) {
                                                 // Caso: estación en formato objeto
                                                 JsonObject estacionObj = estacionElement.getAsJsonObject();
                                                 for (String estacionNombre : estacionObj.keySet()) {
                                                     System.out.println("Estación: " + estacionNombre);
+                                                    // Almacenamos la estación en el array
+                                                    estacionesArray[contadorEstaciones++] = estacionNombre; 
                                                 }
                                             }
+                                        }
+
+                                        // Mostrar las estaciones nuevamente con anterior y siguiente
+                                        System.out.println("\nMostrando estaciones con anterior y siguiente:");
+                                        for (int i = 0; i < contadorEstaciones; i++) {
+                                            String estacionActual = estacionesArray[i];
+                                            String estacionAnterior = (i > 0) ? estacionesArray[i - 1] : "N/A"; // Obtener estación anterior
+                                            String estacionSiguiente = (i < contadorEstaciones - 1) ? estacionesArray[i + 1] : "N/A"; // Obtener estación siguiente
+
+                                            System.out.println("Estación: " + estacionActual + " - Anterior: " + estacionAnterior + " - Siguiente: " + estacionSiguiente);
                                         }
                                     } else {
                                         // Si el formato de estaciones no es objeto ni array, lo marcamos como inesperado
@@ -188,6 +214,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
+
     }//GEN-LAST:event_botonCargarArchivoActionPerformed
 
     /**
