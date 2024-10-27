@@ -4,25 +4,12 @@
  */
 package intefaz;
 
-<<<<<<< HEAD
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import javax.swing.*;
-=======
-<<<<<<< HEAD
-import com.google.gson.Gson;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-=======
->>>>>>> develop
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -30,7 +17,6 @@ import java.io.IOException;
 
 
 
->>>>>>> develop
 /**
  *
  * @author adcd_
@@ -114,88 +100,19 @@ public class CargaDeArchivo extends javax.swing.JFrame {
 
                 System.out.println("Archivo JSON cargado exitosamente.");
 
-<<<<<<< HEAD
                 // Verificamos si el JSON contiene la clave "Metro de Caracas"
                 if (metroDeCaracas.has("Metro de Caracas")) {
                     JsonElement lineasElement = metroDeCaracas.get("Metro de Caracas");
-=======
-            // Leer el contenido del archivo y guardarlo en un String
-<<<<<<< HEAD
-            StringBuilder contenidoArchivo = new StringBuilder();
-=======
-            StringBuilder contenidoArchivo = new StringBuilder(); // Para almacenar todo el contenido
->>>>>>> develop
-            try {
-                Scanner lector = new Scanner(archivoSeleccionado);
-                while (lector.hasNextLine()) {
-                    String linea = lector.nextLine();
-<<<<<<< HEAD
-                    contenidoArchivo.append(linea).append("\n");
-=======
-                    contenidoArchivo.append(linea).append("\n"); // Agregar la línea al StringBuilder
->>>>>>> develop
-                }
-                lector.close();
->>>>>>> develop
 
                     // Confirmamos que "Metro de Caracas" es un arreglo antes de continuar
                     if (lineasElement != null && lineasElement.isJsonArray()) {
                         System.out.println("El sistema de metro es un arreglo. Procesando cada elemento...");
 
-<<<<<<< HEAD
                         // Iteramos sobre cada elemento en el array de líneas
                         for (JsonElement lineaElement : lineasElement.getAsJsonArray()) {
                             if (lineaElement.isJsonObject()) {
                                 // Convertimos el elemento actual a JsonObject para procesar la línea específica
                                 JsonObject lineasObject = lineaElement.getAsJsonObject();
-=======
-<<<<<<< HEAD
-                // Usar Gson para convertir el JSON en un Map
-                Gson gson = new Gson();
-                Map<String, List<Map<String, Object>>> metroDeCaracas = gson.fromJson(contenidoComoString, Map.class);
-
-                // Iterar sobre el sistema de metro
-                for (Map.Entry<String, List<Map<String, Object>>> sistemaEntry : metroDeCaracas.entrySet()) {
-                    String nombreSistema = sistemaEntry.getKey();
-                    System.out.println("Estaciones de " + nombreSistema + ":");
-
-                    // Iterar sobre las líneas
-                    List<Map<String, Object>> lineas = sistemaEntry.getValue();
-                    for (Map<String, Object> linea : lineas) {
-                        for (Map.Entry<String, Object> lineaEntry : linea.entrySet()) {
-                            String nombreLinea = lineaEntry.getKey();
-                            System.out.println("Línea: " + nombreLinea);
-
-                            // Verificar si el valor de la línea es una lista de estaciones
-                            if (lineaEntry.getValue() instanceof List) {
-                                List<Object> estaciones = (List<Object>) lineaEntry.getValue();
-
-                                // Iterar sobre las estaciones y mostrar la estación anterior y siguiente
-                                for (int i = 0; i < estaciones.size(); i++) {
-                                    Object estacion = estaciones.get(i);
-
-                                    // Obtener la estación anterior y siguiente (si existen)
-                                    String estacionAnterior = (i > 0) ? estaciones.get(i - 1).toString() : "N/A";
-                                    String estacionSiguiente = (i < estaciones.size() - 1) ? estaciones.get(i + 1).toString() : "N/A";
-
-                                    // Manejar el caso donde la estación es una conexión (Map)
-                                    if (estacion instanceof String) {
-                                        System.out.println("Estación actual: " + estacion + " - Anterior: " + estacionAnterior + " - Siguiente: " + estacionSiguiente);
-                                    } else if (estacion instanceof Map) {
-                                        Map<String, String> estacionConectada = (Map<String, String>) estacion;
-                                        for (Map.Entry<String, String> conexion : estacionConectada.entrySet()) {
-                                            System.out.println("Estacion actual: " + conexion.getKey() + " (conexion: " + conexion.getValue() + ") - Anterior: " + estacionAnterior + " - Siguiente: " + estacionSiguiente);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-=======
-                // Convertir el contenido a un objeto JSON
-                JSONObject jsonObj = new JSONObject(contenidoComoString);
-                System.out.println("Objeto JSON:");
-                System.out.println(jsonObj.toString(4)); // Formateado con indentación
->>>>>>> develop
 
                                 // Iteramos sobre cada clave en el objeto de líneas (cada clave representa una línea)
                                 for (String nombreLinea : lineasObject.keySet()) {
@@ -214,7 +131,6 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                             System.out.println("Procesando estacion: " + estacionNombre);
                                             JsonElement estacionData = estacionesObject.get(estacionNombre);
 
-<<<<<<< HEAD
                                             if (estacionData != null && estacionData.isJsonObject()) {
                                                 // Caso: estación con conexiones (representada como objeto JSON)
                                                 JsonObject estacionConectada = estacionData.getAsJsonObject();
@@ -283,14 +199,6 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                         }
                     } else {
                         System.out.println("El formato de 'Metro de Caracas' no es compatible o está vacío.");
-=======
-                    // Verificar si el valor es otro JSONObject (para iterar de forma anidada)
-                    if (value instanceof JSONObject) {
-                        JSONObject nestedObject = (JSONObject) value;
-                        System.out.println("Este valor es otro JSONObject:");
-                        System.out.println(nestedObject.toString(4)); // Formatear el objeto anidado
->>>>>>> develop
->>>>>>> develop
                     }
                 } else {
                     System.out.println("'Metro de Caracas' no encontrado en el JSON.");
@@ -300,19 +208,9 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                 // Captura y muestra cualquier error de lectura del archivo
                 System.out.println("Error leyendo el archivo");
                 e.printStackTrace();
-<<<<<<< HEAD
             } catch (Exception e) {
                 // Captura y muestra cualquier otro error general durante el procesamiento
                 System.out.println("Error procesando el archivo");
-=======
-<<<<<<< HEAD
-            } catch (Exception e) {
-                System.out.println("Error procesando el archivo");
-=======
-            } catch (org.json.JSONException e) {
-                System.out.println("El contenido no es un JSON válido");
->>>>>>> develop
->>>>>>> develop
                 e.printStackTrace();
             }
         }
