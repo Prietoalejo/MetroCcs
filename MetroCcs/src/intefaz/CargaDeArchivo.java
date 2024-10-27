@@ -8,6 +8,7 @@ package intefaz;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import edd.*;
 
 import javax.swing.*;
 import java.io.File;
@@ -26,6 +27,8 @@ public class CargaDeArchivo extends javax.swing.JFrame {
     /**
      * Creates new form CargaDeArchivo
      */
+    
+    
     public CargaDeArchivo() {
         initComponents();
     }
@@ -107,6 +110,35 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                     // Confirmamos que "Metro de Caracas" es un arreglo antes de continuar
                     if (lineasElement != null && lineasElement.isJsonArray()) {
                         System.out.println("El sistema de metro es un arreglo. Procesando cada elemento...");
+                        
+                        int cantidadNodos = 0;
+                        
+                        for (JsonElement lineaElement : lineasElement.getAsJsonArray()) {
+                            if (lineaElement.isJsonObject()) {
+                                // Convertimos el elemento actual a JsonObject para procesar la línea específica
+                                JsonObject lineasObject = lineaElement.getAsJsonObject();
+
+                                // Iteramos sobre cada clave en el objeto de líneas (cada clave representa una línea)
+                                for (String nombreLinea : lineasObject.keySet()) {
+                                    JsonElement estacionesElement = lineasObject.get(nombreLinea);
+
+                                   if (estacionesElement != null && estacionesElement.isJsonArray()) {
+                                        for (JsonElement estacionElement : estacionesElement.getAsJsonArray()){
+                                            cantidadNodos++;
+                                        }
+                                        
+                                    } else {
+                                        // Si el formato de estaciones no es objeto ni array, lo marcamos como inesperado
+                                        System.out.println("Formato inesperado para las estaciones de la línea " + nombreLinea);
+                                    }
+                                }
+                                
+                                
+                            }
+                        }
+                        
+                        System.out.println(cantidadNodos);
+                        Grafo g = new Grafo(cantidadNodos);
 
                         // Iteramos sobre cada elemento en el array de líneas
                         for (JsonElement lineaElement : lineasElement.getAsJsonArray()) {
@@ -119,37 +151,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                     System.out.println("Línea: " + nombreLinea);
                                     JsonElement estacionesElement = lineasObject.get(nombreLinea);
 
-                                    // Verificamos si las estaciones son un objeto (JSON complejo) o un array
-                                    if (estacionesElement != null && estacionesElement.isJsonObject()) {
-                                        // Caso: estaciones en formato de objeto
-                                        JsonObject estacionesObject = estacionesElement.getAsJsonObject();
-                                        String estacionAnterior = "N/A";  // Variable para almacenar la última estación procesada
-                                        boolean primeraEstacion = true;  // Marca para identificar la primera estación
-
-                                        // Iteramos sobre las estaciones en formato objeto (clave-valor)
-                                        for (String estacionNombre : estacionesObject.keySet()) {
-                                            System.out.println("Procesando estacion: " + estacionNombre);
-                                            JsonElement estacionData = estacionesObject.get(estacionNombre);
-
-                                            if (estacionData != null && estacionData.isJsonObject()) {
-                                                // Caso: estación con conexiones (representada como objeto JSON)
-                                                JsonObject estacionConectada = estacionData.getAsJsonObject();
-                                                for (String conexionNombre : estacionConectada.keySet()) {
-                                                    // Imprimimos la conexión de la estación
-                                                    String conexionLinea = estacionConectada.get(conexionNombre).getAsString();
-                                                    System.out.println("Estación conexion: " + conexionNombre + " (conexion: " + conexionLinea + ")");
-                                                }
-                                            } else if (estacionData != null && estacionData.isJsonPrimitive()) {
-                                                // Caso: estación regular (representada como String)
-                                                if (!primeraEstacion) {
-                                                    // Imprimimos la estación y la estación anterior (si no es la primera)
-                                                    System.out.println("Estación regular: " + estacionNombre + " - Anterior: " + estacionAnterior);
-                                                }
-                                                estacionAnterior = estacionNombre;  // Actualizamos la estación anterior
-                                                primeraEstacion = false;
-                                            }
-                                        }
-                                    } else if (estacionesElement != null && estacionesElement.isJsonArray()) {
+                                   if (estacionesElement != null && estacionesElement.isJsonArray()) {
                                         // Suponiendo un número máximo de estaciones, ajusta según sea necesario
                                         int MAX_ESTACIONES = 0;
                                         for (JsonElement estacionElement : estacionesElement.getAsJsonArray()){
@@ -175,6 +177,60 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                                 JsonObject estacionObj = estacionElement.getAsJsonObject();
                                                 for (String estacionNombre : estacionObj.keySet()) {
                                                     System.out.println("Estación: " + estacionNombre);
+                                                    
+                                                    g.insertGrafo(estacionNombre);
+                                                    // Almacenamos la estación en el array
+                                                    estacionesArray[contadorEstaciones++] = estacionNombre; 
+                                                }
+                                            }
+                                        }
+
+                                        
+                                    } else {
+                                        // Si el formato de estaciones no es objeto ni array, lo marcamos como inesperado
+                                        System.out.println("Formato inesperado para las estaciones de la línea " + nombreLinea);
+                                    }
+                                }
+                                
+                                
+                            }
+                        }
+                        for (JsonElement lineaElement : lineasElement.getAsJsonArray()) {
+                            if (lineaElement.isJsonObject()) {
+                                // Convertimos el elemento actual a JsonObject para procesar la línea específica
+                                JsonObject lineasObject = lineaElement.getAsJsonObject();
+
+                                // Iteramos sobre cada clave en el objeto de líneas (cada clave representa una línea)
+                                for (String nombreLinea : lineasObject.keySet()) {
+                                    System.out.println("Línea: " + nombreLinea);
+                                    JsonElement estacionesElement = lineasObject.get(nombreLinea);
+
+                                   if (estacionesElement != null && estacionesElement.isJsonArray()) {
+                                        // Suponiendo un número máximo de estaciones, ajusta según sea necesario
+                                        int MAX_ESTACIONES = 0;
+                                        for (JsonElement estacionElement : estacionesElement.getAsJsonArray()){
+                                            MAX_ESTACIONES++;
+                                        }
+                                        
+                                        String[] estacionesArray = new String[MAX_ESTACIONES];
+                                        int contadorEstaciones = 0;
+                                        
+                                        
+
+                                        // Iteramos sobre las estaciones en formato de array
+                                        System.out.println("Estaciones de la línea en formato de array.");
+                                        for (JsonElement estacionElement : estacionesElement.getAsJsonArray()) {
+                                            if (estacionElement.isJsonPrimitive()) {
+                                                // Caso: estación en formato String
+                                                String estacionNombre = estacionElement.getAsString();
+                                                //System.out.println("Estación: " + estacionNombre);
+                                                // Almacenamos la estación en el array
+                                                estacionesArray[contadorEstaciones++] = estacionNombre; 
+                                            } else if (estacionElement.isJsonObject()) {
+                                                // Caso: estación en formato objeto
+                                                JsonObject estacionObj = estacionElement.getAsJsonObject();
+                                                for (String estacionNombre : estacionObj.keySet()) {
+                                                    //System.out.println("Estación: " + estacionNombre);
                                                     // Almacenamos la estación en el array
                                                     estacionesArray[contadorEstaciones++] = estacionNombre; 
                                                 }
@@ -195,10 +251,12 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                         System.out.println("Formato inesperado para las estaciones de la línea " + nombreLinea);
                                     }
                                 }
+                                
+                                
                             }
                         }
                     } else {
-                        System.out.println("El formato de 'Metro de Caracas' no es compatible o está vacío.");
+                        System.out.println("El formato de 'Metro de Caracas' está vacío.");
                     }
                 } else {
                     System.out.println("'Metro de Caracas' no encontrado en el JSON.");

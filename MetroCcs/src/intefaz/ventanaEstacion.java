@@ -53,6 +53,12 @@ public class ventanaEstacion extends javax.swing.JFrame {
             }
         });
         jPanel1.add(botonAddEstaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, -1));
+
+        entradAddEstacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                entradAddEstacionActionPerformed(evt);
+            }
+        });
         jPanel1.add(entradAddEstacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 260, 30));
 
         back.setText("ATRAS");
@@ -77,6 +83,10 @@ public class ventanaEstacion extends javax.swing.JFrame {
         Menu v = new Menu (test);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
+
+    private void entradAddEstacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entradAddEstacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_entradAddEstacionActionPerformed
 
     /**
      * @param args the command line arguments
