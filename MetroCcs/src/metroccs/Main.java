@@ -16,13 +16,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Grafo g = new Grafo(10);
+//        Grafo g = new Grafo(10);
         
-        //CargaDeArchivo test = new CargaDeArchivo();
-        //test.setVisible(true);
-        
-        Menu test = new Menu(g);
+        CargaDeArchivo test = new CargaDeArchivo();
         test.setVisible(true);
+        
+//        Menu test = new Menu(g);
+//        test.setVisible(true);
 
 //        ColaGrafo e = new ColaGrafo();
 //        e.encolar("name1");

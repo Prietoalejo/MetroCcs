@@ -245,6 +245,9 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                             String estacionSiguiente = (i < contadorEstaciones - 1) ? estacionesArray[i + 1] : "N/A"; // Obtener estación siguiente
 
                                             System.out.println("Estación: " + estacionActual + " - Anterior: " + estacionAnterior + " - Siguiente: " + estacionSiguiente);
+                                            if (estacionSiguiente != "N/A"){
+                                                g.insertArista(estacionActual, estacionSiguiente);
+                                            }
                                         }
                                     } else {
                                         // Si el formato de estaciones no es objeto ni array, lo marcamos como inesperado
@@ -255,6 +258,12 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                 
                             }
                         }
+                        
+                        
+                        Menu test = new Menu(g);
+                        test.setVisible(true);
+                        this.setVisible(false);
+                        
                     } else {
                         System.out.println("El formato de 'Metro de Caracas' está vacío.");
                     }
