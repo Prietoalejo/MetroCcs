@@ -143,59 +143,74 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                         // Iteramos sobre cada elemento en el array de líneas
                         for (JsonElement lineaElement : lineasElement.getAsJsonArray()) {
                             if (lineaElement.isJsonObject()) {
-                                // Convertimos el elemento actual a JsonObject para procesar la línea específica
                                 JsonObject lineasObject = lineaElement.getAsJsonObject();
 
-                                // Iteramos sobre cada clave en el objeto de líneas (cada clave representa una línea)
                                 for (String nombreLinea : lineasObject.keySet()) {
                                     System.out.println("Línea: " + nombreLinea);
                                     JsonElement estacionesElement = lineasObject.get(nombreLinea);
 
-                                   if (estacionesElement != null && estacionesElement.isJsonArray()) {
-                                        // Suponiendo un número máximo de estaciones, ajusta según sea necesario
-                                        int MAX_ESTACIONES = 0;
-                                        for (JsonElement estacionElement : estacionesElement.getAsJsonArray()){
-                                            MAX_ESTACIONES++;
-                                        }
-                                        
+                                    if (estacionesElement != null && estacionesElement.isJsonArray()) {
+                                        int MAX_ESTACIONES = estacionesElement.getAsJsonArray().size();
                                         String[] estacionesArray = new String[MAX_ESTACIONES];
                                         int contadorEstaciones = 0;
-                                        
-                                        
 
-                                        // Iteramos sobre las estaciones en formato de array
                                         System.out.println("Estaciones de la línea en formato de array.");
                                         for (JsonElement estacionElement : estacionesElement.getAsJsonArray()) {
                                             if (estacionElement.isJsonPrimitive()) {
-                                                // Caso: estación en formato String
                                                 String estacionNombre = estacionElement.getAsString();
                                                 System.out.println("Estación: " + estacionNombre);
-                                                
-                                                
-                                                g.insertGrafo(estacionNombre);
-                                                // Almacenamos la estación en el array
-                                                estacionesArray[contadorEstaciones++] = estacionNombre; 
+
+                                                if (g.searchGraf(estacionNombre) == null) {
+                                                    g.insertGrafo(estacionNombre);
+                                                }
+
+                                                if (contadorEstaciones < MAX_ESTACIONES) {
+                                                    estacionesArray[contadorEstaciones++] = estacionNombre;
+                                                }
                                             } else if (estacionElement.isJsonObject()) {
-                                                // Caso: estación en formato objeto
+                                                String[][] conexionesUnicas = new String[100][2];
+                                                int totalConexiones = 0;
+
                                                 JsonObject estacionObj = estacionElement.getAsJsonObject();
                                                 for (String estacionNombre : estacionObj.keySet()) {
-                                                    System.out.println("Estación: " + estacionNombre);
-                                                    
-                                                    g.insertGrafo(estacionNombre);
-                                                    // Almacenamos la estación en el array
-                                                    estacionesArray[contadorEstaciones++] = estacionNombre; 
+                                                    String estacionConectada = estacionObj.get(estacionNombre).getAsString();
+
+                                                    String estacion1 = estacionNombre.compareTo(estacionConectada) < 0 ? estacionNombre : estacionConectada;
+                                                    String estacion2 = estacionNombre.compareTo(estacionConectada) < 0 ? estacionConectada : estacionNombre;
+
+                                                    boolean esDuplicado = false;
+                                                    for (int i = 0; i < totalConexiones; i++) {
+                                                        if (conexionesUnicas[i][0].equals(estacion1) && conexionesUnicas[i][1].equals(estacion2)) {
+                                                            esDuplicado = true;
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    if (!esDuplicado && totalConexiones < conexionesUnicas.length) {
+                                                        conexionesUnicas[totalConexiones][0] = estacion1;
+                                                        conexionesUnicas[totalConexiones][1] = estacion2;
+                                                        totalConexiones++;
+
+                                                        String nombre = estacion1 + " - " + estacion2;
+                                                        System.out.println(nombre);
+
+                                                        if (g.searchGraf(nombre) == null) {
+                                                            g.insertGrafo(nombre);
+                                                        }
+
+                                                        if (contadorEstaciones < MAX_ESTACIONES) {
+                                                            estacionesArray[contadorEstaciones++] = estacionNombre;
+                                                        }
+                                                    } else if (esDuplicado) {
+                                                        System.out.println("Conexión duplicada ignorada: " + estacion1 + " - " + estacion2);
+                                                    }
                                                 }
                                             }
                                         }
-
-                                        
                                     } else {
-                                        // Si el formato de estaciones no es objeto ni array, lo marcamos como inesperado
                                         System.out.println("Formato inesperado para las estaciones de la línea " + nombreLinea);
                                     }
                                 }
-                                
-                                
                             }
                         }
                         for (JsonElement lineaElement : lineasElement.getAsJsonArray()) {
@@ -231,11 +246,37 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                                 estacionesArray[contadorEstaciones++] = estacionNombre; 
                                             } else if (estacionElement.isJsonObject()) {
                                                 // Caso: estación en formato objeto
+                                                                                              
+                                                String[][] conexionesUnicas = new String[100][2];
+                                                int totalConexiones = 0;
+
                                                 JsonObject estacionObj = estacionElement.getAsJsonObject();
                                                 for (String estacionNombre : estacionObj.keySet()) {
-                                                    //System.out.println("Estación: " + estacionNombre);
-                                                    // Almacenamos la estación en el array
-                                                    estacionesArray[contadorEstaciones++] = estacionNombre; 
+                                                    String estacionConectada = estacionObj.get(estacionNombre).getAsString();
+
+                                                    String estacion1 = estacionNombre.compareTo(estacionConectada) < 0 ? estacionNombre : estacionConectada;
+                                                    String estacion2 = estacionNombre.compareTo(estacionConectada) < 0 ? estacionConectada : estacionNombre;
+
+                                                    boolean esDuplicado = false;
+                                                    for (int i = 0; i < totalConexiones; i++) {
+                                                        if (conexionesUnicas[i][0].equals(estacion1) && conexionesUnicas[i][1].equals(estacion2)) {
+                                                            esDuplicado = true;
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    if (!esDuplicado && totalConexiones < conexionesUnicas.length) {
+                                                        conexionesUnicas[totalConexiones][0] = estacion1;
+                                                        conexionesUnicas[totalConexiones][1] = estacion2;
+                                                        totalConexiones++;
+
+                                                        String nombre = estacion1 + " - " + estacion2;
+                                                        System.out.println(nombre);
+
+                                                        estacionesArray[contadorEstaciones++] = nombre; 
+                                                    } else if (esDuplicado) {
+                                                        System.out.println("Conexión duplicada ignorada: " + estacion1 + " - " + estacion2);
+                                                    }
                                                 }
                                             }
                                         }
@@ -251,6 +292,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                             
                                             if (estacionSiguiente != "N/A"){
                                                 g.insertArista(estacionActual, estacionSiguiente);
+                                                System.out.println("listo");
                                             }
                                         }
                                     } else {
