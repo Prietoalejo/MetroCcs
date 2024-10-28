@@ -170,6 +170,9 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                                 // Caso: estación en formato String
                                                 String estacionNombre = estacionElement.getAsString();
                                                 System.out.println("Estación: " + estacionNombre);
+                                                
+                                                
+                                                g.insertGrafo(estacionNombre);
                                                 // Almacenamos la estación en el array
                                                 estacionesArray[contadorEstaciones++] = estacionNombre; 
                                             } else if (estacionElement.isJsonObject()) {
@@ -245,6 +248,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
                                             String estacionSiguiente = (i < contadorEstaciones - 1) ? estacionesArray[i + 1] : "N/A"; // Obtener estación siguiente
 
                                             System.out.println("Estación: " + estacionActual + " - Anterior: " + estacionAnterior + " - Siguiente: " + estacionSiguiente);
+                                            
                                             if (estacionSiguiente != "N/A"){
                                                 g.insertArista(estacionActual, estacionSiguiente);
                                             }
