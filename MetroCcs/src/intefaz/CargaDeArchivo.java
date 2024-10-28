@@ -8,11 +8,10 @@ package intefaz;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-<<<<<<< HEAD
+
 import edd.*;
 
-=======
->>>>>>> develop
+
 import javax.swing.*;
 import java.io.File;
 import java.io.FileReader;
